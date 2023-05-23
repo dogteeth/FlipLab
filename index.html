@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .content {
+        width: 100%;
+        height: 100vh;
+        display: grid;
+        font-size: 2rem;
+        gap: 2rem;
+        background-color: grey;
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .entry {
+        border: solid 0.5rem black;
+        display: grid;
+        place-content: center;
+      }
+      a {
+        width: 10rem;
+        height: 10rem;
+        background-color: black;
+        padding: 1rem;
+        border-radius: 50%;
+        display: grid;
+        place-content: center;
+        color: white;
+      }
+
+      a:visited {
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content">
+      <div class="entry"><a href="mondrian_colorFlip.html">colorFlip </a></div>
+      <div class="entry"><a href=" mondrian_colorSwap.html">colorSwap </a></div>
+      <div class="entry"><a href="mondrian_colorFlip.html">01 </a></div>
+      <div class="entry"><a href="mondrian_colorFlip.html">01 </a></div>
+      <div class="entry"><a href="mondrian_colorFlip.html">01 </a></div>
+      <div class="entry"><a href="mondrian_colorFlip.html">01 </a></div>
+    </div>
+  </body>
+</html>
