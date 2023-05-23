@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .mainContent {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .container {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(4, 1fr);
+        grid-column-gap: 0px;
+        grid-row-gap: 0px;
+        height: 70vh;
+        aspect-ratio: 3/2;
+        border: solid 0.5rem rgb(222, 8, 8);
+        border-radius: 2.5rem;
+      }
+
+      .btn:nth-child(even) {
+        background-color: rgb(221, 92, 92);
+      }
+      .btn:nth-child(odd) {
+        background-color: rgb(113, 18, 18);
+      }
+
+      .btn:nth-child(1) {
+        border-radius: 2rem 0rem 0rem 0rem;
+      }
+      .btn:nth-child(4) {
+        border-radius: 0rem 2rem 0rem 0rem;
+      }
+      .btn:nth-child(7) {
+        border-radius: 0rem 0rem 2rem 0rem;
+      }
+      .btn:nth-child(10) {
+        border-radius: 0rem 0rem 0rem 2rem;
+      }
+
+      .div1 {
+        grid-area: 1 / 1 / 2 / 2;
+      }
+      .div2 {
+        grid-area: 1 / 2 / 2 / 3;
+      }
+      .div3 {
+        grid-area: 1 / 3 / 2 / 4;
+      }
+      .div4 {
+        grid-area: 1 / 4 / 2 / 5;
+      }
+      .div5 {
+        grid-area: 2 / 4 / 3 / 5;
+      }
+      .div6 {
+        grid-area: 3 / 4 / 4 / 5;
+      }
+      .div7 {
+        grid-area: 4 / 4 / 5 / 5;
+      }
+      .div8 {
+        grid-area: 4 / 3 / 5 / 4;
+      }
+      .div9 {
+        grid-area: 4 / 2 / 5 / 3;
+      }
+      .div10 {
+        grid-area: 4 / 1 / 5 / 2;
+      }
+      .div11 {
+        grid-area: 3 / 1 / 4 / 2;
+      }
+      .div12 {
+        grid-area: 2 / 1 / 3 / 2;
+      }
+      .controlDiv {
+        grid-area: 2 / 2 / 4 / 4;
+      }
+
+      .controlDiv {
+        background-color: bisque;
+      }
+
+      .controlDiv {
+        width: 100%;
+        height: 100%;
+        display: grid;
+        place-content: center;
+      }
+
+      .ctrlBTN {
+        width: 100%;
+        height: 100%;
+        display: grid;
+        place-content: center;
+        font-size: 3rem;
+        width: 10rem;
+        height: 10rem;
+        border-radius: 50%;
+        background-color: rgb(252, 155, 179);
+        color: white;
+      }
+      .btn.toggleLight {
+        background-color: rgb(245, 172, 77);
+        box-shadow: 0rem 0rem 3rem rgba(163, 113, 48, 0.7);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="mainContent">
+      <div class="container">
+        <div class="btn div1"></div>
+        <div class="btn div2"></div>
+        <div class="btn div3"></div>
+        <div class="btn div4"></div>
+        <div class="btn div5"></div>
+        <div class="btn div6"></div>
+        <div class="btn div7"></div>
+        <div class="btn div8"></div>
+        <div class="btn div9"></div>
+        <div class="btn div10"></div>
+        <div class="btn div11"></div>
+        <div class="btn div12"></div>
+        <div class="controlDiv">
+          <div class="ctrlBTN">GO</div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const controller = document.querySelector(".controlDiv");
+      const buttons = document.querySelectorAll(".btn");
+      controller.addEventListener("click", (e) => {
+        const randomNUM = Math.floor(getRandomArbitrary(0, 11));
+        console.log(randomNUM);
+        runningLight();
+      });
+
+      function getRandomArbitrary(min, max) {
+        return Math.random() * (max - min) + min;
+      }
+
+      function runningLight() {
+        let j = 0;
+        do {
+          for (i = 0; i < buttons.length * 3; i++) {
+            (function (i) {
+              setTimeout(function () {
+                toggleLight(i);
+              }, 130 * i);
+            })(i);
+            console.log(i);
+            j++;
+          }
+        } while (j < 4);
+      }
+
+      function toggleLight(num) {
+        buttons[num].classList.add("toggleLight");
+        setTimeout(function () {
+          buttons[num].classList.remove("toggleLight");
+        }, 200);
+      }
+    </script>
+  </body>
+</html>

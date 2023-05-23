@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/Flip.min.js"></script>
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --lineWidthBorder: 0rem;
+        --basicBorder: 0.45rem;
+        --basicBorderEm: 1rem;
+        --basicBorderDoubleEm: 1.3rem;
+        --blueColor: rgb(0, 106, 255);
+      }
+
+      .container {
+        display: grid;
+        width: 100%;
+        height: 100vh;
+        place-content: center;
+        background-color: grey;
+      }
+      .mondriainBox {
+        display: grid;
+        height: 70vh;
+        aspect-ratio: 1 / 1;
+        border: black solid var(--lineWidthBorder);
+        grid-template-columns: repeat(8, 1fr);
+        grid-template-rows: repeat(24, 1fr);
+        gap: var(--lineWidthGap);
+        filter: drop-shadow(0rem 0rem 1rem black);
+      }
+      .white {
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        z-index: -7;
+      }
+      .red {
+        width: 100%;
+        height: 100%;
+        background-color: red;
+        z-index: -10;
+      }
+
+      .blue {
+        width: 100%;
+        height: 100%;
+        background-color: var(--blueColor);
+        z-index: -9;
+      }
+
+      .yellow {
+        width: 100%;
+        height: 100%;
+        background-color: yellow;
+        z-index: -8;
+      }
+      .div1 {
+        grid-column: 1 / span 2;
+        grid-row: 1 / span 8;
+        border-right: black solid var(--basicBorder);
+        border-bottom: black solid var(--basicBorderEm);
+        z-index: 9;
+      }
+
+      .div2 {
+        grid-column: 3 / span 6;
+        grid-row: 1 / span 17;
+        border: black solid var(--basicBorder);
+        border-top: none;
+        border-right: none;
+      }
+
+      .div3 {
+        grid-column: 1 / span 2;
+        grid-row: 9 / span 9;
+        border: black solid var(--basicBorder);
+        border-left: none;
+      }
+
+      .div4 {
+        grid-column: 1 / span 2;
+        grid-row: 18 / span 8;
+
+        border: black solid var(--basicBorder);
+        border-left: none;
+        border-bottom: none;
+      }
+
+      .div5 {
+        grid-column: 3 / span 5;
+        grid-row: 18 / span 8;
+        border: black solid var(--basicBorder);
+        border-bottom: none;
+      }
+
+      .div6 {
+        grid-column: 8 / span 1;
+        grid-row: 18 / span 3;
+        border-top: black solid var(--basicBorder);
+        border-left: black solid var(--basicBorder);
+        border-right: none;
+        border-bottom: none;
+      }
+
+      .div7 {
+        grid-column: 8 / span 1;
+        grid-row: 21 / span 4;
+        border-left: black solid var(--basicBorder);
+        border-top: black solid var(--basicBorderDoubleEm);
+        border-right: none;
+        border-bottom: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="mondriainBox">
+        <div class="box div1"><div class="white"></div></div>
+        <div class="box div2"><div class="red"></div></div>
+        <div class="box div3"><div class="white"></div></div>
+        <div class="box div4"><div class="blue"></div></div>
+        <div class="box div5"><div class="white"></div></div>
+        <div class="box div6"><div class="white"></div></div>
+        <div class="box div7"><div class="yellow"></div></div>
+      </div>
+    </div>
+    <script>
+      const boxes = document.querySelectorAll(".box");
+
+      boxes.forEach(function (box) {
+        box.addEventListener("click", (e) => {
+          console.log("you click");
+
+          gsap.to(box, {
+            x: 100,
+            duration: 1,
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

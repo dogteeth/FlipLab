@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/Flip.min.js"></script>
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      :root {
+        --lineWidthBorder: 0rem;
+        --basicBorder: 0.45rem;
+        --basicBorderEm: 1rem;
+        --basicBorderDoubleEm: 1.3rem;
+        --blueColor: rgb(0, 106, 255);
+      }
+
+      .container {
+        display: grid;
+        width: 100%;
+        height: 100vh;
+        place-content: center;
+        background-color: grey;
+      }
+      .mondriainBox {
+        display: grid;
+        height: 70vh;
+        aspect-ratio: 1 / 1;
+        border: black solid var(--lineWidthBorder);
+        grid-template-columns: repeat(8, 1fr);
+        grid-template-rows: repeat(24, 1fr);
+        gap: var(--lineWidthGap);
+        filter: drop-shadow(0rem 0rem 1rem black);
+      }
+
+      .div1 {
+        grid-column: 1 / span 2;
+        grid-row: 1 / span 8;
+        border-right: black solid var(--basicBorder);
+        border-bottom: black solid var(--basicBorderEm);
+      }
+
+      .div2 {
+        grid-column: 3 / span 6;
+        grid-row: 1 / span 17;
+        border: black solid var(--basicBorder);
+        border-top: none;
+        border-right: none;
+      }
+
+      .div3 {
+        grid-column: 1 / span 2;
+        grid-row: 9 / span 9;
+        border: black solid var(--basicBorder);
+        border-left: none;
+      }
+
+      .div4 {
+        grid-column: 1 / span 2;
+        grid-row: 18 / span 8;
+
+        border: black solid var(--basicBorder);
+        border-left: none;
+        border-bottom: none;
+      }
+
+      .div5 {
+        grid-column: 3 / span 5;
+        grid-row: 18 / span 8;
+        border: black solid var(--basicBorder);
+        border-bottom: none;
+      }
+
+      .div6 {
+        grid-column: 8 / span 1;
+        grid-row: 18 / span 3;
+        border-top: black solid var(--basicBorder);
+        border-left: black solid var(--basicBorder);
+        border-right: none;
+        border-bottom: none;
+      }
+
+      .div7 {
+        grid-column: 8 / span 1;
+        grid-row: 21 / span 4;
+        border-left: black solid var(--basicBorder);
+        border-top: black solid var(--basicBorderDoubleEm);
+        border-right: none;
+        border-bottom: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="mondriainBox">
+        <div data-color="white" class="box div1"></div>
+        <div data-color="red" class="box div2"></div>
+        <div data-color="white" class="box div3"></div>
+        <div data-color="var(--blueColor)" class="box div4"></div>
+        <div data-color="white" class="box div5"></div>
+        <div data-color="white" class="box div6"></div>
+        <div data-color="yellow" class="box div7"></div>
+      </div>
+    </div>
+    <script>
+      gsap.registerPlugin(Flip);
+
+      let boxes = document.querySelectorAll(".box");
+
+      boxes.forEach(function (box) {
+        //設定原始顏色
+        box.style.backgroundColor = box.dataset.color;
+
+        box.addEventListener("click", (e) => {
+          const bkColor = box.style.backgroundColor;
+          // let state = Flip.getState(bkColor);
+          const div2 = document.querySelector(".div2");
+          if (box === div2) {
+            console.log("you click div02");
+            gsap.from(box, {
+              scale: 10,
+              duration: 0.5,
+              ease: Elastic.easeOut.config(1, 0.1),
+            });
+
+            let randomIndex = [1, 2, 3, 4, 5, 6, 0].sort(
+              () => 0.5 - Math.random()
+            );
+
+            for (let i = 0; i < boxes.length; i++) {
+              const indexNum = randomIndex[i];
+              if (i == 0) {
+                boxes[indexNum].dataset.color = "red";
+                boxes[indexNum].style.backgroundColor = "red";
+              } else if (i == 1) {
+                boxes[indexNum].dataset.color = "yellow";
+                boxes[indexNum].style.backgroundColor = "yellow";
+              } else if (i == 2) {
+                boxes[indexNum].dataset.color = "var(--blueColor)";
+                boxes[indexNum].style.backgroundColor = "var(--blueColor)";
+              } else {
+                boxes[indexNum].dataset.color = "white";
+                boxes[indexNum].style.backgroundColor = "white";
+              }
+            }
+          } else {
+            const originalColor = box.dataset.color;
+            box.dataset.color = div2.dataset.color;
+            div2.dataset.color = originalColor;
+
+            if (box.dataset.color == "white" && div2.dataset.color == "white") {
+              if (box.classList.contains("div4")) {
+                gsap.from(box, {
+                  y: "-=30",
+                  x: "+=30",
+                  duration: 1,
+                  ease: Elastic.easeOut.config(1, 0.1),
+                });
+              } else if (
+                box.classList.contains("div1") ||
+                box.classList.contains("div3")
+              ) {
+                gsap.from(box, {
+                  x: "+=30",
+                  duration: 1,
+                  ease: Elastic.easeOut.config(1, 0.1),
+                });
+              } else {
+                gsap.from(box, {
+                  y: "-=30",
+                  duration: 1,
+                  ease: Elastic.easeOut.config(1, 0.1),
+                });
+              }
+            }
+            gsap.to(div2, {
+              backgroundColor: div2.dataset.color,
+              duration: 0.5,
+            });
+            gsap.to(box, {
+              backgroundColor: box.dataset.color,
+              duration: 0.5,
+            });
+          }
+        });
+      });
+
+      // random shuffle array
+    </script>
+  </body>
+</html>
